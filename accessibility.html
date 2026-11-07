@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="How this website supports keyboard, screen reader and low-vision users, and how to report a problem.">
+    <title>Accessibility | HackTrent</title>
+
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23164b2e'/%3E%3Ccircle cx='16' cy='14' r='8' fill='%23f5b82e'/%3E%3Cpath d='M16 22v6' stroke='%23f5b82e' stroke-width='2'/%3E%3C/svg%3E">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&display=swap">
+    <link rel="stylesheet" href="reset.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="simple">
+    <a class="skip-link" href="#main">Skip to main content</a>
+
+    <header class="site-header">
+        <a class="brand" href="index.html#home">
+            <span class="brand-name">HackTrent</span>
+            <span class="brand-sub">@ Trent University</span>
+        </a>
+
+        <form class="search" role="search" id="search-form" novalidate>
+            <label for="q">Search the site</label>
+            <div class="search-row">
+                <input type="search" id="q" name="q" autocomplete="off" aria-describedby="search-msg"
+                    placeholder="Try “schedule”">
+                <button type="submit">Go</button>
+            </div>
+            <p id="search-msg" class="search-msg" role="status"></p>
+            <ul id="search-results" class="search-results"></ul>
+        </form>
+    </header>
+
+    <nav class="site-nav" aria-label="Main">
+        <ul>
+            <li><a href="index.html#home">Home</a></li>
+            <li><a href="index.html#about">About Us</a></li>
+            <li><a href="index.html#apply">Apply Now</a></li>
+            <li><a href="index.html#schedule">Event Schedule</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <main id="main" class="content" tabindex="-1">
+        <h1 class="page-title">Accessibility</h1>
+
+        <p>We want everyone to be able to use this website and take part in HackTrent.</p>
+
+        <h2>What we’ve done</h2>
+        <ul class="plain-list">
+            <li>You can reach every link, button and form field with the keyboard. Use “Skip to main content” at the
+                top of each page to jump past the menu.</li>
+            <li>Text and background colours meet WCAG 2.2 AA contrast, and text can be enlarged to 200% without
+                losing content.</li>
+            <li>Pages use headings, landmarks, labelled form fields and descriptive image text so screen readers can
+                navigate them.</li>
+            <li>Animation is limited and turns off if your device asks for reduced motion.</li>
+        </ul>
+
+        <h2>What we’re still checking</h2>
+        <p>We’ve tested with automated tools and the keyboard. We’re still testing with a wider range of screen
+            readers.</p>
+
+        <h2>Tell us about a problem</h2>
+        <p>If something doesn’t work for you, email <a href="mailto:hello@hacktrent.example">hello@hacktrent.example</a>.
+            Tell us the page, what you were trying to do and what happened. You can also ask for access needs at the
+            event when you <a href="index.html#apply">apply</a>.</p>
+        <p class="back"><a href="index.html#home">Back to the home page</a></p>
+    </main>
+
+    <footer class="foot">
+        <p>© 2026 HackTrent. All rights reserved.</p>
+        <nav aria-label="Footer">
+            <ul>
+                <li><a href="privacy.html">Privacy Policy</a></li>
+                <li><a href="terms.html">Terms of Use</a></li>
+                <li><a href="accessibility.html" aria-current="page">Accessibility</a></li>
+            </ul>
+        </nav>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

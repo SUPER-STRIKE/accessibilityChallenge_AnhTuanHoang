@@ -1,75 +1,207 @@
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Accessbility Challenge</title>
-    <link rel="stylesheet" href="/reset.css" />
-    <link rel="stylesheet" href="/styles.css" />
+    <meta name="description" content="HackTrent is a student hackathon at Trent University. Find the schedule, read about the event and apply to take part.">
+    <title>HackTrent @ Trent University</title>
+
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23164b2e'/%3E%3Ccircle cx='16' cy='14' r='8' fill='%23f5b82e'/%3E%3Cpath d='M16 22v6' stroke='%23f5b82e' stroke-width='2'/%3E%3C/svg%3E">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&display=swap">
+    <link rel="stylesheet" href="reset.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
 
-    <!-- Top header + Search bar-->
-    <section>
-        <div>
-            <h2>HackTrent</h2>
-            <h3><i>@ Trent University</i></h3>
-        </div>
-        <div class="search"><b>Search:</b><input type="url" placeholder="Search..."><button> Go</button></div>
-    </section>
+    <!-- Top header + search -->
+    <header class="site-header">
+        <a class="brand" href="#home">
+            <span class="brand-name">HackTrent</span>
+            <span class="brand-sub">@ Trent University</span>
+        </a>
 
+        <form class="search" role="search" id="search-form" novalidate>
+            <label for="q">Search the site</label>
+            <div class="search-row">
+                <input type="search" id="q" name="q" autocomplete="off" aria-describedby="search-msg"
+                    placeholder="Try “schedule”">
+                <button type="submit">Go</button>
+            </div>
+            <p id="search-msg" class="search-msg" role="status"></p>
+            <ul id="search-results" class="search-results"></ul>
+        </form>
+    </header>
 
-    <section>
-        <div onclick="location.href='#home'">Home</div>
-        <div onclick="location.href='#about'">About Us</div>
-        <div onclick="location.href='#apply'">Apply Now</div>
-        <div onclick="location.href='#schedule'">Event Schedule</div>
-        <div onclick="location.href='#contact'">Contact</div>
-    </section>
-
-    <section class="content">
-        <div>
-            <h4>Main content</h4>
-            <img src="/assets/happyHackers.JPG" width="500px">
-            <p>lorem ipsum dolor sit amet consectetur adipiscing elit proident sunt placeat est quos incididunt amet
-                blanditiis et est deserunt ut laboris qui eum cum nam fugiat placeat sunt quo consequat dolore nisi
-                ullamco et sunt deserunt veniam reprehenderit et imperdiet cillum eum possimus quas at fugiat eiusmod
-                cumque voluptas dolor</p>
-
-            <br>
-            <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-                deserunt mollit anim id est laborum."
-
-                
-            </p>
-
-
-    <section class="right-bar">
-        <p> this is the right content</p>
+    <!-- Main navigation -->
+    <nav class="site-nav" aria-label="Main">
         <ul>
+            <li><a href="#home" aria-current="location">Home</a></li>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#apply">Apply Now</a></li>
+            <li><a href="#schedule">Event Schedule</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
 
-            <li>
-                <div class="news"><img
-                        src="/assets/HackTrent2025.jpg"
-                        width="100px">
-                    <div><a href="#image">HackTrent2025 Recap</a>
-                        <p>November 15, 2025</p>
-                    </div>
+    <main id="main" class="content" tabindex="-1">
+        <section id="home" class="hero" aria-labelledby="home-title">
+            <h1 id="home-title">Welcome to HackTrent</h1>
+            <p class="lead">A weekend of building, learning and meeting people at Trent University. Come with a team,
+                or come alone and find one.</p>
+            <p class="cta-row">
+                <a class="button" href="#apply">Apply now</a>
+                <a class="button button-quiet" href="#schedule">See the schedule</a>
+            </p>
+            <figure>
+                <img src="assets/happyHackers.JPG" width="1200" height="800" fetchpriority="high"
+                    alt="Four students at a wooden table in a busy hall, laptops open. One turns to talk with a teammate while other teams work behind them.">
+                <figcaption>Teams hard at work at HackTrent 2025.</figcaption>
+            </figure>
+        </section>
+
+        <section id="about" aria-labelledby="about-title">
+            <h2 id="about-title">About us</h2>
+            <p>HackTrent is a student-run hackathon. Over one weekend, teams turn an idea into a working project and show
+                it to everyone on Sunday. You don’t need to be a computer science student, and you don’t need to have
+                entered a hackathon before.</p>
+            <p>Mentors are on hand all weekend, workshops cover the basics, and there is always food. Last year’s event
+                ran on November 8 and 9, 2025.</p>
+        </section>
+
+        <section id="apply" aria-labelledby="apply-title">
+            <h2 id="apply-title">Apply now</h2>
+            <p>Tell us a little about yourself. Every field is required unless it says optional.</p>
+
+            <form id="apply-form" novalidate>
+                <div id="error-summary" class="error-summary" role="alert" tabindex="-1" hidden>
+                    <p class="error-summary-title">Fix these problems before you apply</p>
+                    <ul></ul>
                 </div>
+
+                <div class="field">
+                    <label for="name">Full name</label>
+                    <input type="text" id="name" name="name" autocomplete="name" aria-describedby="name-error">
+                    <p class="error" id="name-error" hidden></p>
+                </div>
+
+                <div class="field">
+                    <label for="email">Email address</label>
+                    <p class="hint" id="email-hint">We only use this to send you event details.</p>
+                    <input type="email" id="email" name="email" autocomplete="email"
+                        aria-describedby="email-hint email-error">
+                    <p class="error" id="email-error" hidden></p>
+                </div>
+
+                <div class="field">
+                    <label for="year">Year of study</label>
+                    <select id="year" name="year" aria-describedby="year-error">
+                        <option value="">Choose one</option>
+                        <option>First year</option>
+                        <option>Second year</option>
+                        <option>Third year</option>
+                        <option>Fourth year or later</option>
+                        <option>Graduate student</option>
+                        <option>Not a student</option>
+                    </select>
+                    <p class="error" id="year-error" hidden></p>
+                </div>
+
+                <fieldset class="field" aria-describedby="team-error">
+                    <legend>Team size</legend>
+                    <div class="choice"><input type="radio" id="team-1" name="team" value="Just me"><label
+                            for="team-1">Just me, and I’d like to be matched with a team</label></div>
+                    <div class="choice"><input type="radio" id="team-2" name="team" value="2 people"><label
+                            for="team-2">Team of 2</label></div>
+                    <div class="choice"><input type="radio" id="team-3" name="team" value="3 people"><label
+                            for="team-3">Team of 3</label></div>
+                    <div class="choice"><input type="radio" id="team-4" name="team" value="4 people"><label
+                            for="team-4">Team of 4</label></div>
+                    <p class="error" id="team-error" hidden></p>
+                </fieldset>
+
+                <div class="field">
+                    <label for="needs">Accessibility or dietary needs (optional)</label>
+                    <p class="hint" id="needs-hint">Tell us anything that would help you take part comfortably.</p>
+                    <textarea id="needs" name="needs" rows="3" aria-describedby="needs-hint"></textarea>
+                </div>
+
+                <div class="field">
+                    <div class="choice">
+                        <input type="checkbox" id="conduct" name="conduct" aria-describedby="conduct-error">
+                        <label for="conduct">I agree to follow the HackTrent code of conduct</label>
+                    </div>
+                    <p class="error" id="conduct-error" hidden></p>
+                </div>
+
+                <button type="submit" class="button">Apply now</button>
+            </form>
+            <p id="apply-status" class="success" role="status"></p>
+        </section>
+
+        <section id="schedule" aria-labelledby="schedule-title">
+            <h2 id="schedule-title">Event schedule</h2>
+            <table>
+                <caption>A typical HackTrent weekend. Final times are confirmed by email.</caption>
+                <thead>
+                    <tr>
+                        <th scope="col">When</th>
+                        <th scope="col">What’s happening</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><th scope="row">Saturday, 9:00 am</th><td>Check-in and breakfast</td></tr>
+                    <tr><th scope="row">Saturday, 10:00 am</th><td>Opening talk and team forming</td></tr>
+                    <tr><th scope="row">Saturday, 11:00 am</th><td>Hacking begins</td></tr>
+                    <tr><th scope="row">Saturday, 7:00 pm</th><td>Dinner and workshops</td></tr>
+                    <tr><th scope="row">Sunday, 10:00 am</th><td>Submissions close</td></tr>
+                    <tr><th scope="row">Sunday, 11:00 am</th><td>Project demos</td></tr>
+                    <tr><th scope="row">Sunday, 2:00 pm</th><td>Awards and closing</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="contact" aria-labelledby="contact-title">
+            <h2 id="contact-title">Contact</h2>
+            <p>Questions about the event, sponsorship or access? Email the organizers at
+                <a href="mailto:hello@hacktrent.example">hello@hacktrent.example</a> and we’ll reply within two
+                working days.</p>
+        </section>
+    </main>
+
+    <!-- Right sidebar -->
+    <aside class="right-bar" aria-labelledby="news-title">
+        <h2 id="news-title">Latest news</h2>
+        <ul>
+            <li>
+                <article class="news">
+                    <img src="assets/HackTrent2025.jpg" width="96" height="72" loading="lazy"
+                        alt="A lecture hall decorated with balloons, with a slide reading “Welcome to Hack Trent, November 8–9 2025”.">
+                    <div>
+                        <a href="recap.html">HackTrent2025 Recap</a>
+                        <p><time datetime="2025-11-15">November 15, 2025</time></p>
+                    </div>
+                </article>
             </li>
         </ul>
-    </section>
+    </aside>
 
-    <section class="foot">
-        <span>© 2026 HackTrent. All rights reserved.</span>
-        <span><a href="#privacy">Privacy Policy</a> | <a href="#terms">Terms of Use</a> | <a
-                href="#accessibility">Accessibility</a></span>
-    </section>
+    <footer class="foot">
+        <p>© 2026 HackTrent. All rights reserved.</p>
+        <nav aria-label="Footer">
+            <ul>
+                <li><a href="privacy.html">Privacy Policy</a></li>
+                <li><a href="terms.html">Terms of Use</a></li>
+                <li><a href="accessibility.html">Accessibility</a></li>
+            </ul>
+        </nav>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
-
 
 </html>

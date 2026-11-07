@@ -1,133 +1,978 @@
+/* ---------- Tokens ---------- */
+:root {
+    --ink: #0e2822;
+    --forest: #0f6b53;
+    --forest-deep: #0a4a3a;
+    --gold: #f6c445;
+    --paper: #f4f9f6;
+    --white: #ffffff;
+    --mint: #e2f2ea;
+    --mint-line: #c5e0d3;
+    --muted: #3d554d;
+    --line: #587068;
+    --error: #a8122b;
+
+    /* Balloon colours from the 2025 event, used sparingly and never to carry meaning */
+    --coral: #f2674f;
+    --teal: #19a99c;
+    --pink: #e5498a;
+    --lime: #9ccb3b;
+
+    --font-body: "Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --font-display: "Bricolage Grotesque", "Atkinson Hyperlegible", system-ui, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 100%;
+    scroll-padding-top: 1rem;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    html {
+        scroll-behavior: smooth;
+    }
+}
+
 body {
     margin: 0;
+    min-height: 100vh;
     display: grid;
-    grid-template-columns: 220px 1fr 220px;
+    grid-template-columns: 15rem minmax(0, 1fr) 18rem;
+    grid-template-areas:
+        "header header header"
+        "nav    main   aside"
+        "footer footer footer";
     grid-template-rows: auto 1fr auto;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 1.125rem;
+    line-height: 1.6;
 }
 
-/* Top header + search bar */
-section:first-child {
-    grid-column: 1 / 4;
-    grid-row: 1;
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+p,
+li {
+    max-width: 68ch;
+}
+
+/* ---------- Focus (two-tone ring works on light and dark) ---------- */
+:focus-visible {
+    outline: 3px solid var(--ink);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 6px var(--gold);
+    border-radius: 2px;
+}
+
+main:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+/* ---------- Skip link ---------- */
+.skip-link {
+    position: absolute;
+    left: 1rem;
+    top: -4rem;
+    z-index: 10;
+    padding: 0.75rem 1.25rem;
+    background: var(--gold);
+    color: var(--ink);
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.skip-link:focus {
+    top: 1rem;
+}
+
+/* ---------- Header + search ---------- */
+.site-header {
+    grid-area: header;
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
-    padding: 15px 25px;
-    background-color: blueviolet;
+    gap: 1rem 2rem;
+    padding: 1rem 1.5rem;
+    background: var(--forest-deep);
+    color: var(--white);
 }
 
-/* Welcome to HackTrent header */
-h2 {
-    font-size: 2em;
-    background-color: blueviolet;
-    color: purple;
-}
-
-/* Trent University tagline */
-h3 {
-    font-size: 2.1em;
-    background-color: blueviolet;
-    color: purple;
-    display: flex;
-}
-
-/* Navigation sidebar */
-section:nth-child(2) {
-    grid-column: 1;
-    grid-row: 2;
+.brand {
     display: flex;
     flex-direction: column;
-    gap: 3em;
-    background-color: purple;
-    color: blue;
-    padding: 1em;
+    color: var(--white);
+    text-decoration: none;
+    line-height: 1.1;
 }
 
-/* Search bar */
-div.search {
+.brand-name {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 2.25rem;
+    letter-spacing: -0.02em;
+}
+
+.brand-sub {
+    font-style: italic;
+    color: var(--gold);
+    font-size: 1.125rem;
+}
+
+.search label {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+}
+
+.search-row {
     display: flex;
-    align-items: center;
-    gap: 1em;
+    gap: 0.5rem;
 }
 
-/* Input field */
-div.search input {
-    background-color: aqua;
-    padding: 0.1em;
+.search input {
+    width: min(18rem, 60vw);
 }
 
-/* Go button */
-div.search button {
-    background: aqua;
-    font-size: 1em;
+.search-msg {
+    min-height: 1.6em;
+    margin: 0.25rem 0 0;
+    max-width: 24rem;
 }
 
-/* Content */
+.search-results {
+    margin: 0.25rem 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.search-results a {
+    display: inline-block;
+    padding: 0.35rem 0;
+    color: var(--gold);
+}
+
+.search-results a:hover {
+    color: var(--white);
+}
+
+.search input[aria-invalid="true"] {
+    border-color: var(--gold);
+}
+
+/* ---------- Navigation ---------- */
+.site-nav {
+    grid-area: nav;
+    background: var(--white);
+    border-right: 1px solid var(--mint-line);
+    padding: 1.5rem 0;
+}
+
+.site-nav ul,
+.foot ul,
+.right-bar ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.site-nav ul {
+    position: sticky;
+    top: 1.5rem;
+}
+
+.site-nav a {
+    display: block;
+    padding: 0.85rem 1.5rem;
+    color: var(--ink);
+    text-decoration: none;
+    font-weight: 700;
+    border-left: 6px solid transparent;
+}
+
+.site-nav a:hover {
+    background: var(--mint);
+    border-left-color: var(--forest);
+    color: var(--ink);
+}
+
+.site-nav a[aria-current] {
+    background: var(--forest);
+    border-left-color: var(--gold);
+    color: var(--white);
+}
+
+/* ---------- Main content ---------- */
 .content {
-    grid-column: 2;
-    grid-row: 2;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: black;
-    color: darkblue;
-    text-align: center;
-    padding-bottom: 1em;
+    grid-area: main;
+    padding: 2.5rem clamp(1rem, 4vw, 3.5rem) 4rem;
 }
 
-/*Main content header in center*/
-.content h4 {
-    text-align: center;
-    font-size: 2em;
-    padding-bottom: 1em;
+.content section {
+    scroll-margin-top: 1rem;
+    margin-bottom: 3.5rem;
 }
 
-/*Content text*/
+.content section:last-child {
+    margin-bottom: 0;
+}
+
+h1,
+h2 {
+    font-family: var(--font-display);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--forest);
+    margin: 0 0 1rem;
+}
+
+h1 {
+    font-size: clamp(2.75rem, 7vw, 5.5rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+}
+
+h2 {
+    font-size: 2rem;
+    font-weight: 800;
+}
+
 .content p {
-    padding-top: 1em;
+    margin: 0 0 1rem;
 }
 
-.content table {
-    color: whitesmoke;
-    padding: 1em;
-    text-align: center;
+.lead {
+    font-size: 1.375rem;
+    line-height: 1.5;
+    color: var(--ink);
 }
 
-.content table td
-{
-    padding: 1em;
+a {
+    color: var(--forest);
+    text-underline-offset: 0.2em;
+    text-decoration-thickness: 2px;
 }
 
-/* Right sidebar */
+a:hover {
+    color: var(--ink);
+    text-decoration-thickness: 4px;
+}
+
+/* Hero: the one memorable element */
+.hero figure {
+    position: relative;
+    margin: 2.5rem 0 0;
+    max-width: 52rem;
+}
+
+.hero img {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    border-radius: 6px;
+    box-shadow: 14px 14px 0 var(--gold);
+}
+
+.cta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 1rem;
+    margin-top: 1.5rem;
+}
+
+/* Decorative balloons floating over the photo's corner (pseudo-elements, so nothing for screen readers) */
+.hero figure::before,
+.hero figure::after {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    border-radius: 50%;
+    pointer-events: none;
+    background:
+        radial-gradient(circle at 32% 30%, rgb(255 255 255 / 0.55) 0 10%, transparent 11%),
+        var(--pink);
+}
+
+.hero figure::before {
+    top: -3rem;
+    right: 4.5rem;
+    width: 5.5rem;
+    height: 5.5rem;
+    /* two smaller balloons from one pseudo-element */
+    box-shadow: 4.25rem 1.25rem 0 -1.35rem var(--teal), -2.5rem 1.75rem 0 -1.6rem var(--coral);
+}
+
+.hero figure::after {
+    top: -1rem;
+    right: 0.75rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    background:
+        radial-gradient(circle at 32% 30%, rgb(255 255 255 / 0.55) 0 10%, transparent 11%),
+        var(--lime);
+}
+
+@keyframes float-in {
+    from {
+        opacity: 0;
+        transform: translateY(1.5rem);
+    }
+
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+
+    .hero figure::before,
+    .hero figure::after {
+        animation: float-in 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) 0.2s both;
+    }
+
+    .hero figure::after {
+        animation-delay: 0.45s;
+    }
+}
+
+.hero figcaption {
+    margin-top: 1.5rem;
+    color: var(--muted);
+    font-style: italic;
+}
+
+/* ---------- Table ---------- */
+table {
+    width: 100%;
+    max-width: 44rem;
+    border-collapse: collapse;
+    background: var(--white);
+    border: 2px solid var(--forest);
+}
+
+caption {
+    text-align: left;
+    padding-bottom: 0.75rem;
+    color: var(--muted);
+}
+
+th,
+td {
+    text-align: left;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--mint-line);
+}
+
+thead th {
+    background: var(--forest);
+    color: var(--white);
+}
+
+tbody th {
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+tbody tr:nth-child(even) {
+    background: #eaf5ef;
+}
+
+/* Heavier rule between Saturday and Sunday */
+tbody tr:nth-child(4) > * {
+    border-bottom: 3px solid var(--forest);
+}
+
+/* ---------- Form ---------- */
+form {
+    max-width: 36rem;
+}
+
+.field {
+    margin: 0 0 1.5rem;
+    padding: 0;
+    border: 0;
+    min-width: 0;
+}
+
+label,
+legend {
+    display: block;
+    font-weight: 700;
+    padding: 0;
+    margin-bottom: 0.25rem;
+}
+
+.hint {
+    margin: 0 0 0.5rem;
+    color: var(--muted);
+}
+
+input[type="text"],
+input[type="email"],
+input[type="search"],
+select,
+textarea {
+    display: block;
+    width: 100%;
+    min-height: 3rem;
+    padding: 0.5rem 0.75rem;
+    font: inherit;
+    color: var(--ink);
+    background: var(--white);
+    border: 2px solid var(--line);
+    border-radius: 4px;
+}
+
+textarea {
+    resize: vertical;
+}
+
+.choice {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    min-height: 2.75rem;
+    padding: 0.35rem 0;
+}
+
+.choice label {
+    font-weight: 400;
+    margin: 0;
+}
+
+.choice input {
+    flex: none;
+    width: 1.5rem;
+    height: 1.5rem;
+    margin: 0.2rem 0 0;
+    accent-color: var(--forest);
+}
+
+button,
+.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 3rem;
+    padding: 0.5rem 1.5rem;
+    font: inherit;
+    font-weight: 700;
+    color: var(--ink);
+    background: var(--gold);
+    border: 2px solid var(--ink);
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+button:hover,
+.button:hover {
+    background: var(--ink);
+    color: var(--gold);
+}
+
+.button-quiet {
+    background: transparent;
+}
+
+.button-quiet:hover {
+    background: var(--forest);
+    color: var(--white);
+}
+
+#apply-form .button {
+    min-height: 3.25rem;
+    padding-inline: 2rem;
+    font-size: 1.125rem;
+}
+
+/* The apply form sits in its own panel so it reads as the page's main task */
+#apply-form {
+    max-width: 36rem;
+    padding: 1.5rem 1.5rem 2rem;
+    background: var(--white);
+    border: 2px solid var(--forest);
+    border-top: 8px solid var(--forest);
+    border-radius: 6px;
+}
+
+@media (max-width: 36rem) {
+    #apply-form {
+        padding: 1.25rem 1rem 1.5rem;
+    }
+}
+
+/* Divider between page sections */
+.content section + section {
+    padding-top: 3rem;
+    border-top: 2px solid var(--mint-line);
+}
+
+.error {
+    margin: 0.5rem 0 0;
+    color: var(--error);
+    font-weight: 700;
+}
+
+.error::before {
+    content: "⚠ ";
+}
+
+input[aria-invalid="true"],
+select[aria-invalid="true"],
+textarea[aria-invalid="true"] {
+    border-color: var(--error);
+    border-width: 3px;
+}
+
+.error-summary {
+    margin-bottom: 1.5rem;
+    padding: 1rem 1.25rem;
+    background: var(--white);
+    border: 3px solid var(--error);
+    border-radius: 4px;
+}
+
+.error-summary-title {
+    margin: 0 0 0.5rem;
+    font-weight: 700;
+    color: var(--error);
+}
+
+.error-summary ul {
+    margin: 0;
+    padding-left: 1.25rem;
+}
+
+.error-summary a {
+    color: var(--error);
+}
+
+.success:not(:empty) {
+    margin-top: 1.5rem;
+    padding: 1rem 1.25rem;
+    background: var(--white);
+    border: 3px solid var(--forest);
+    border-left-width: 10px;
+    border-radius: 4px;
+    font-weight: 700;
+}
+
+/* ---------- Right sidebar ---------- */
 .right-bar {
-    text-align: center;
-    padding: 1em;
-    grid-column: 3;
-    grid-row: 2;
-    background-color: aqua;
+    grid-area: aside;
+    padding: 2.5rem 1.5rem;
+    background: var(--mint);
+    border-left: 1px solid var(--mint-line);
 }
 
-.right-bar p {
-    padding-bottom: 0.5em;
-    font-size: 1.1em;
+.right-bar h2 {
+    font-size: 1.5rem;
 }
 
-.right-bar ul li {
-    padding-bottom: 1em;
+.right-bar li {
+    margin-bottom: 1.25rem;
 }
 
-/* Footer */
+.news {
+    max-width: 22rem;
+    background: var(--white);
+    border: 2px solid var(--forest);
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.news img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+}
+
+.news div {
+    padding: 0.75rem 1rem 1rem;
+}
+
+.news a {
+    font-weight: 700;
+    font-size: 1.125rem;
+}
+
+.news p {
+    margin: 0.25rem 0 0;
+    color: var(--muted);
+    font-size: 1rem;
+}
+
+/* ---------- Footer ---------- */
 .foot {
-    grid-column: 1 / 4;
-    grid-row: 3;
-    text-align: center;
-    background-color: blueviolet;
-    color: white;
-    padding: 1em;
+    grid-area: footer;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem 2rem;
+    padding: 1.25rem 1.5rem;
+    background: var(--forest-deep);
+    color: var(--white);
 }
 
-/*Footer text*/
-.foot span {
-    padding: 1em;
-    color: purple;
+.foot p {
+    margin: 0;
+}
+
+.foot ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 1.5rem;
+}
+
+.foot a {
+    display: inline-block;
+    padding: 0.6rem 0;
+    color: var(--gold);
+}
+
+.foot a:hover {
+    color: var(--white);
+}
+
+/* ---------- Tablet and mobile ---------- */
+@media (max-width: 62rem) {
+    body {
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-areas:
+            "header"
+            "nav"
+            "main"
+            "aside"
+            "footer";
+        grid-template-rows: auto;
+    }
+
+    .site-nav {
+        padding: 0;
+    }
+
+    .site-nav ul {
+        display: flex;
+        flex-wrap: wrap;
+        position: static;
+    }
+
+    .site-nav a {
+        border-left: 0;
+        border-bottom: 6px solid transparent;
+        padding: 0.85rem 1rem;
+    }
+
+    .site-nav a:hover {
+        border-bottom-color: var(--white);
+    }
+
+    .site-nav a[aria-current] {
+        border-bottom-color: var(--gold);
+    }
+
+    .right-bar {
+        border-left: 0;
+        border-top: 1px solid var(--mint-line);
+        padding: 2rem clamp(1rem, 4vw, 3.5rem);
+    }
+}
+
+@media (max-width: 36rem) {
+    .hero img {
+        box-shadow: 8px 8px 0 var(--gold);
+    }
+
+    .hero figure::before,
+    .hero figure::after {
+        display: none;
+    }
+
+    tbody th {
+        white-space: normal;
+    }
+
+    th,
+    td {
+        padding: 0.65rem 0.6rem;
+    }
+}
+
+@media (forced-colors: active) {
+    .hero img {
+        box-shadow: none;
+    }
+
+    .hero figure::before,
+    .hero figure::after {
+        display: none;
+    }
+}
+
+/* ---------- Subpages (privacy, terms, accessibility, recap) ---------- */
+@media (min-width: 62.01rem) {
+    body.simple {
+        grid-template-columns: 15rem minmax(0, 1fr);
+        grid-template-areas:
+            "header header"
+            "nav    main"
+            "footer footer";
+    }
+}
+
+.simple .content {
+    max-width: 52rem;
+}
+
+.page-title {
+    font-size: clamp(2.25rem, 5vw, 3.5rem);
+}
+
+.simple h2 {
+    font-size: 1.5rem;
+    margin-top: 2rem;
+}
+
+.plain-list {
+    margin: 0 0 1rem;
+    padding-left: 1.25rem;
+}
+
+.plain-list li {
+    margin-bottom: 0.5rem;
+}
+
+.meta {
+    color: var(--muted);
+}
+
+.recap-photo {
+    margin: 0 0 1.5rem;
+}
+
+.recap-photo img {
+    width: 100%;
+    max-width: 44rem;
+    border-radius: 6px;
+}
+
+.recap-photo figcaption {
+    margin-top: 0.5rem;
+    color: var(--muted);
+    font-style: italic;
+}
+
+.back {
+    margin-top: 3rem;
+}
+
+.foot a[aria-current="page"] {
+    color: var(--white);
+    text-decoration-thickness: 4px;
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* ---------- Responsive refinements ---------- */
+
+/* Laptop and small desktop: drop the right column and let the news sit under the content */
+@media (min-width: 62.01rem) and (max-width: 80rem) {
+    body {
+        grid-template-columns: 13.5rem minmax(0, 1fr);
+        grid-template-areas:
+            "header header"
+            "nav    main"
+            "nav    aside"
+            "footer footer";
+        grid-template-rows: auto auto auto auto;
+    }
+
+    .right-bar {
+        border-left: 0;
+        border-top: 1px solid var(--mint-line);
+        padding: 2rem clamp(1rem, 4vw, 3.5rem);
+    }
+}
+
+/* Anything narrower than a wide desktop: the news card lies on its side */
+@media (max-width: 80rem) {
+    .news {
+        display: flex;
+        max-width: 34rem;
+    }
+
+    .news img {
+        flex: none;
+        width: 10rem;
+        height: auto;
+        align-self: stretch;
+        aspect-ratio: auto;
+    }
+}
+
+@media (max-width: 36rem) {
+    .site-header {
+        padding: 0.75rem 1rem 1rem;
+    }
+
+    .brand-name {
+        font-size: 1.875rem;
+    }
+
+    .search {
+        width: 100%;
+    }
+
+    .search input {
+        width: 100%;
+        flex: 1 1 auto;
+        min-width: 0;
+    }
+
+    .cta-row .button {
+        flex: 1 1 100%;
+    }
+
+    .foot {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+@media (max-width: 30rem) {
+    .news {
+        display: block;
+    }
+
+    .news img {
+        width: 100%;
+        aspect-ratio: 4 / 3;
+    }
+}
+
+/* ---------- Motion (all of it switched off by prefers-reduced-motion) ---------- */
+@keyframes rise {
+    from {
+        opacity: 0;
+        transform: translateY(1.25rem);
+    }
+
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@keyframes bob {
+    50% {
+        transform: translateY(-0.45rem);
+    }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+
+    /* One orchestrated entrance when the page opens */
+    .hero h1,
+    .hero .lead,
+    .hero .cta-row,
+    .hero figure,
+    .page-title {
+        animation: rise 0.75s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+    }
+
+    .hero .lead {
+        animation-delay: 0.08s;
+    }
+
+    .hero .cta-row {
+        animation-delay: 0.16s;
+    }
+
+    .hero figure {
+        animation-delay: 0.26s;
+    }
+
+    /* Balloons arrive, then bob twice (under 5 seconds, so it never needs a pause control) */
+    .hero figure::before,
+    .hero figure::after {
+        animation: float-in 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) 0.7s both,
+            bob 2.2s ease-in-out 1.7s 2;
+    }
+
+    .hero figure::after {
+        animation-delay: 0.9s, 1.9s;
+    }
+
+    /* Answers to the visitor's own actions */
+    button,
+    .button,
+    .site-nav a,
+    .news,
+    a {
+        transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease,
+            transform 0.2s ease, box-shadow 0.2s ease, text-decoration-thickness 0.2s ease;
+    }
+
+    button:hover,
+    .button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 0 rgb(14 40 34 / 0.25);
+    }
+
+    button:active,
+    .button:active {
+        transform: none;
+        box-shadow: none;
+    }
+
+    .news:hover,
+    .news:focus-within {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 0 var(--mint-line);
+    }
+
+    /* Sections ease in as they are scrolled to (only when the script has set this up) */
+    .reveal-ready .content section+section {
+        opacity: 0;
+        transform: translateY(1.5rem);
+        transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .reveal-ready .content section+section.is-visible {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@media print {
+    .reveal-ready .content section+section {
+        opacity: 1 !important;
+        transform: none !important;
+    }
 }
